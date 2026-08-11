@@ -64,12 +64,21 @@
   var ticketEl = document.getElementById("ticketNum");
 
   if (form) {
-    // Roll a fresh ticket number on load
+    // Roll a distinct ticket number on every page load.
     if (ticketEl) {
       var now = new Date();
-      var day = String(now.getDate()).padStart(2, "0");
-      var seed = (now.getMonth() * 31 + now.getDate() + now.getHours()).toString(36).toUpperCase().slice(-2);
-      ticketEl.textContent = "A1-" + seed + day;
+      var datePart = String(now.getFullYear()).slice(-2) +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        String(now.getDate()).padStart(2, "0");
+      var randomPart;
+      if (window.crypto && window.crypto.getRandomValues) {
+        var randomValue = new Uint32Array(1);
+        window.crypto.getRandomValues(randomValue);
+        randomPart = randomValue[0].toString(36).toUpperCase().slice(-5);
+      } else {
+        randomPart = Math.floor(Math.random() * 60466176).toString(36).toUpperCase().padStart(5, "0");
+      }
+      ticketEl.textContent = "A1-" + datePart + "-" + randomPart;
     }
 
     form.addEventListener("submit", function (e) {
