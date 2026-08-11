@@ -1293,6 +1293,33 @@ a.contact-method:hover {
 }
 
 @media (max-width: 768px) {
+  /* Standalone route pages use a compact, always-visible navigation. */
+  .nav:not(#nav) {
+    position: static;
+    width: auto;
+    padding: 0;
+    transform: none;
+    background: transparent;
+    box-shadow: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.25rem 0.8rem;
+  }
+
+  .nav:not(#nav) a {
+    color: var(--ink);
+    font-size: 0.78rem;
+    padding: 0.2rem 0;
+    width: auto;
+    border: 0;
+  }
+
+  .nav:not(#nav) .nav-cta {
+    margin-top: 0;
+    padding: 0.25rem 0.45rem;
+  }
+
   .topbar-area { display: none; }
   .topbar-inner { justify-content: center; text-align: center; }
 
