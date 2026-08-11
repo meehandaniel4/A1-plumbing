@@ -93,11 +93,10 @@
         return;
       }
 
-      // This opens whichever email app or webmail service the visitor has set as default.
-      // Each submitted field is included in the draft, ready for them to review and send.
-      var companyEmail = "a1handymanphilly@gmail.com";
+      // This opens the messaging app on phones, with every submitted field
+      // pre-filled in a text message for the customer to review and send.
+      var companyPhone = "+12153806666";
       var ticketNumber = ticketEl ? ticketEl.textContent : "A1 inquiry";
-      var subject = "Free Estimate Request - " + (service.value || "General inquiry");
       var bodyLines = [
         "Estimate request: " + ticketNumber,
         "",
@@ -109,11 +108,10 @@
         "Details:",
         form.querySelector('[name="message"]').value.trim() || "(no details provided)"
       ];
-      var mailto = "mailto:" + companyEmail +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(bodyLines.join("\n"));
+      var sms = "sms:" + companyPhone +
+        "?body=" + encodeURIComponent(bodyLines.join("\n"));
 
-      window.location.href = mailto;
+      window.location.href = sms;
 
       if (successBox) {
         successBox.hidden = false;
