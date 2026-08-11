@@ -93,11 +93,14 @@
         return;
       }
 
-      // Build a mailto: link addressed to the company inbox with the
-      // form details pre-filled, then open the visitor's email client.
+      // This opens whichever email app or webmail service the visitor has set as default.
+      // Each submitted field is included in the draft, ready for them to review and send.
       var companyEmail = "a1handymanphilly@gmail.com";
-      var subject = "Free Estimate Request — " + (service.value || "General inquiry");
+      var ticketNumber = ticketEl ? ticketEl.textContent : "A1 inquiry";
+      var subject = "Free Estimate Request - " + (service.value || "General inquiry");
       var bodyLines = [
+        "Estimate request: " + ticketNumber,
+        "",
         "Name: " + name.value.trim(),
         "Phone: " + phone.value.trim(),
         "Email: " + (form.querySelector('[name="email"]').value.trim() || "not provided"),
@@ -116,9 +119,6 @@
         successBox.hidden = false;
         successBox.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-      form.querySelectorAll("input, select, textarea, button").forEach(function (el) {
-        el.disabled = true;
-      });
     });
 
     // Clear error state as the user fixes fields
